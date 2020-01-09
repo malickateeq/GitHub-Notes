@@ -90,3 +90,15 @@
 
 ### master branch:
     - Is the stable version of the code.
+
+## Create a branch
+    ```git
+        git branch branch_name
+
+        // list all branches , current branch (which we're in) will appear green
+        git branch -a
+
+        // To checkout/view/move/switch to a branch
+        git checkout branch_name
+        
+    ```
