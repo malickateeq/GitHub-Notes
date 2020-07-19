@@ -14,24 +14,58 @@
         // list tracked and untracked commits etc.
         git status
     ```
+    
+## Git States:
+    // GIT files/code life cyle
+    Modified -> Staging -> Committed
+    1. Modified: You have a file you’ve made changes to but you have not yet committed (saved) to your local database.
 
-## Committing Changes
+    2. Staged: You have a modified file that you’ve “marked” as one you are planning to include in your next commit “snapshot”.
+
+    3. Committed: You “officially” saved all your changes/files to your local database in git.
+    
+## Version Controlling:
+
+### Initializing Git:
     ```php
-
-        // GIT files/code life cyle
-        Modified -> Staging -> Committed
-
+        // Initialize Git in newly created project by
+        git init
+    ```
+### Staging Files
+    - To stage a file to be included in your next commit snapshot, use "git add" command
+    ```php
         // Add files for git staging for commit
-        git add .           // means add all
+        
+        // Add all untracked files
+        git add .
+        
+        // Add a specific file
         git add file.txt    // add file.txt
 
         // To remove file from staging
         git rm --cache file.text    // remove file.txt
         git rm --cache . -r    // remove all, -r to avoid recursive loop
-
-        // Move files from staging to committed
-        git commit -m "My custom message here"
     ```
+
+### Saving A File
+    - To save a file (and all changes) to your local git database, you will use the "git commit" command.
+    ```php
+        // Commit changes in local version
+        git commit -m "I make xyz change in abc.."
+    ```
+### Pushing Up Your Local Repository To GitHub: Code Hosting Site
+    ```php
+    
+    ```
+
+
+## Git General Commands:
+    - git status:
+        Current status of the branch.
+        
+    - git log:
+        When I want to see what I have in my local database and what git has recorded up this point
+
 
 ## GitHub Undoing things
     ```php
@@ -178,3 +212,20 @@
             click "Create Pull Request" to your copy and your request is submittd to original author.
         6. The original branch reppo will login and review pull request and approve/disapprove changes. :)   
     ```
+## CRLF and LF Issue:
+```php
+    Windows: Carriage Return (CR) and a Line Feed (LF) thus (CRLF)
+    UNIX: Line Feed (LF)
+    
+    1. For single developer on windows, turn off the warning:
+        git config core.autocrlf true
+    2. For multiple developers > One on Windows platform
+        git config --global core.autocrlf true
+    3. For multiple developers > One on UNIX platform
+        git config --global core.autocrlf input
+        
+    4. For Windows Only > Turn off this functionality
+        git config --global core.autocrlf false
+        
+     For more details: https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
+```
