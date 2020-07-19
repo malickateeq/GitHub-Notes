@@ -88,7 +88,7 @@
     git branch -b <branch_name>
 
     // A Classification to Branches
-    1.Feature Branch (new stuff your adding to your project)
+    1. Feature Branch (new stuff your adding to your project)
     2. Bug Fix Branch (you introduced a change that broke some existing functionality and needs to get fixed)
     3. Hotfix Branch (a critical fix that needs to go in ASAP to get some functionality up and running again)
 ```
@@ -112,7 +112,11 @@
 - Git offers the ability to “join” two or more branch histories together 
 - It is necessary for us to be up to date with all the braches before we merge the branches.
 ```php
-    Best Way: Push branch live for review, don't locally merge it 
+    Best Way: Push branch live for review, don't locally merge it
+        // Commit by remaining within the branch
+        git add .
+        git commit -m "Branch Changes"
+        
         git push origin <branch_name>
         
     1. Checkout (switch over) to the master branch
