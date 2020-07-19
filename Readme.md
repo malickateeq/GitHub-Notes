@@ -71,6 +71,9 @@
 
 ## Working With Branches:
 
+    - DON'T: merge changes with the master branch locally, can mess up things on live reppo
+    - Better: PUSH the branch to live reppo for review to others.
+            
 ### Creating a New Branch:
 ```php
     git branch <branch_name>
@@ -97,6 +100,9 @@
     
     2. Use this ID or Hash to Revert
         git revert <ID,Hash>
+        
+        // Permanent Changes
+        git revert <ID,Hash> --hard
     
     x. Revert HEAD or last commit
         git revert HEAD
@@ -104,12 +110,33 @@
 
 ### Merging Changes:
 - Git offers the ability to “join” two or more branch histories together 
+- It is necessary for us to be up to date with all the braches before we merge the branches.
 ```php
+    Best Way: Push branch live for review, don't locally merge it 
+        git push origin <branch_name>
+        
     1. Checkout (switch over) to the master branch
         git checkout master
         
+        I. Make your master branch up to date by pulling new changes, if any.
+        git pull <remote alias> master
+        git pull <remote alias> <branch name>
+        
+        OR upon error: This forces the pull and merge.
+        git pull <remote alias> <branch name> --allow-unrelated-histories
+        
     2. Merge your feature branch into your master branch
         git merge <branch_name>
+```
+
+### Setting branch as upstream: Publishing a branch
+```php
+    // To push data to master we need to make our current working branch into an upstream branch.
+    git push --set-upstream origin <branch>
+    or
+    git push -u origin <branch>
+    e.g: 
+    git push --set-upstream origin v1
 ```
 
 ### Branch Conflicts:
@@ -118,15 +145,13 @@
 
 ```
 
-### Reverting Changes:
+### Deleting the branch:
+- Once you have merged a branch it needs to be deleted as no changes will be a staged in it any longer.
 ```php
-
-```
-
-## Collaborating
-- the ability for others to collaborate with you on your project.
-```php
-
+    git push --delete <remote_name> <branch_name>
+    
+    // To delete a branch not merged yet just
+    git branch -D <branch_name>
 ```
 
 ## Git General Commands:
@@ -142,131 +167,45 @@
     - git branch 
         List all branches, shows current branch with an asteric *
     ```
-
-## GitHub Undoing things
-    ```php
-        // To view Git Commit history/log (Commit_ID, Author, Date, Message)
-        git log
-        // To view in condensed form
-        git log --oneline
-    ```
-
-### Checkout Commit (go back in time to view code)
-    ```php
-        // 1. First get ID of committ to modify etc.
-        git log --oneline
-
-        // 2. Get back in time by
-        git checkout Commit_ID
-
-        // 3. Now to get original/previous state just
-        git checkout master
-
-    ```
-### Revert Commit (almost delete, but not we can get back)
-    ```php
-        // 1. First get ID of committ to modify etc.
-        git log --oneline
-
-        // 2. Get back in time by
-        git revert Commit_ID
-
-        // 3. You'll see a warning then press shift+: then enter wq to exit,
-
-        // 4. It'll revert changes BUT add a new commit to git log
-
-        // 3. Now to get original/previous state just
-        git checkout master
-    ```
-### Reset Commit (permenantly go back in time)
-    ```php
-        // 1. First get ID of committ to modify etc.
-        git log --oneline
-
-        // 2. Get back in time by; The existing file changes will not effect
-        git revert Commit_ID 
-
-        // 2. Get back in time by; Hard revert
-        git revert Commit_ID --hard
-
-        // 3. Now to get original/previous state just
-        It's too late to get back now.
-    ```
-
-### Creating & merging a branch:
-    ```php
-        // Creating a new branch 
-        git branch branch_name
-
-        // Show all branches
-        git branch -a       // current branch will be highlighted green
-
-        // Switch to new branch
-        git checkout branch_name
-
-        <-- Coding/changes in new branch, while stying in that branch --> 
-        // make commits etc..
-
-        // To delete a branch not merged yet just
-        git branch -D branch_name
-
-        // Merge branch with master
-        git checkout master
-        git merge branch_name
-    ```
-### Branch Conflicts:
+    
+### Resolve Branch Conflicts:
     - when you change same things in master as well as in the branch, on merging them arises conflicts.
     ```php
         1. Remove committs, 
-        2. git add.
+        2. git add .
         3. git commit       // with no message
         4. shift + :    type wq enter to exit now conflict branches merged.
     ```
 
-## GitHub Remote Repositories:
+## Collaborating:
+- the ability for others to collaborate with you on your project.
+```php
+    1. Clone project from live reppo. 
+        git clone <url>
+    2. Pull any new changes from master if any. GET UPDATES
+        git pull origin master  (get from live and merge it to local master(current branch))
 
-### Create live reppo and clone in to local:
-    ```php
-        1. Initialize with Readme.md
-        2. Click "Clone or Download" button and copy url
-        3. Now to clone:
-            git clone https://github.com/malickateeq/GitHub-Notes.git
-        
-        4. Add alias for future pushes:
-            git add remote -v   // It has already setup push/fetch aliases on cloning
-        
-        5. Then
-        git push origin master  // with branch name
-        
-    ```
+    3. Create a new branch locally & make some changes therein
+        DON'T: merge changes with the master branch locally, can mess up things on live reppo
+        Better: PUSH the branch to live reppo for review to others.
 
-## Collaborating on Github:
+        git push origin newly_created_branch_name
 
-    ```php
-        1. Clone project from live reppo as described above.
-        2. Pull any new changes from master if any. GET UPDATES
-            git pull origin master  (get from live and merge it to local master(current branch))
+    4. We can review "Compare & Pull" on live reppo website: To merge and > delete the branch
+```
 
-        3. Create a new branch locally & make some changes therein
-            DON'T: merge changes with the master branch locally, can mess up things on live reppo
-            Better: PUSH the branch to live reppo for review to others.
+### Working on other's accounts code
+```php
+    1. Git to GitHub and open the public url to theire code
+    2. click "Fork" to make a copy to your account
+    3. Clone tha copy.
+    4. Do some work and push changes to your copy ~~~~
 
-            git push origin newly_created_branch_name
-        
-        4. We can review "Compare & Pull" on live reppo website: To merge and > delete the branch
-        
-    ```
-## Working on other's accounts code
-    ```php
-        1. Git to GitHub and open the public url to theire code
-        2. click "Fork" to make a copy to your account
-        3. Clone tha copy.
-        4. Do some work and push changes to your copy ~~~~
+    5. Bow contribute.. by;
+        click "Create Pull Request" to your copy and your request is submittd to original author.
+    6. The original branch reppo will login and review pull request and approve/disapprove changes. :)   
+```
 
-        5. Bow contribute.. by;
-            click "Create Pull Request" to your copy and your request is submittd to original author.
-        6. The original branch reppo will login and review pull request and approve/disapprove changes. :)   
-    ```
 ## CRLF and LF Issue:
 ```php
     Windows: Carriage Return (CR) and a Line Feed (LF) thus (CRLF)
