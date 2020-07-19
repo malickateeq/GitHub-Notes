@@ -24,11 +24,12 @@
 
     3. Committed: You “officially” saved all your changes/files to your local database in git.
     
-## Version Controlling:
+## GitHub Basics:
 
 ### Initializing Git:
     ```php
         // Initialize Git in newly created project by
+        // Also will create a default master branch
         git init
     ```
 ### Staging Files
@@ -55,17 +56,92 @@
     ```
 ### Pushing Up Your Local Repository To GitHub: Code Hosting Site
     ```php
-    
+        1. Link local repository with a live remotely hosted repository
+            - "git remote add", then short name for reppo usually "origin", then URL to remote repository
+            
+            // We can set alias to git reppo url to avoid repeatition
+            // origin is default used by many
+            
+            git remote add origin https://github.com/malickateeq/MyProject.git
+        
+        2. Push, publish or upload local repository to live
+            - Arg1: shortname, Arg2: branch name, -u means set-upstream: set default branch only 1st time
+            git push -u origin master
     ```
 
+## Working With Branches:
+
+### Creating a New Branch:
+```php
+    git branch <branch_name>
+
+    // List all branches
+    git branch
+    
+    // Switch to other branch
+    git checkout <branch_name>
+    
+    // Create new branch and switch to it
+    git branch -b <branch_name>
+
+    // A Classification to Branches
+    1.Feature Branch (new stuff your adding to your project)
+    2. Bug Fix Branch (you introduced a change that broke some existing functionality and needs to get fixed)
+    3. Hotfix Branch (a critical fix that needs to go in ASAP to get some functionality up and running again)
+```
+
+### Reverting (Undoing) Changes:
+```php
+    1. Finding Commit(Hash, ID) to Revert
+        git log --oneline
+    
+    2. Use this ID or Hash to Revert
+        git revert <ID,Hash>
+    
+    x. Revert HEAD or last commit
+        git revert HEAD
+```
+
+### Merging Changes:
+- Git offers the ability to “join” two or more branch histories together 
+```php
+    1. Checkout (switch over) to the master branch
+        git checkout master
+        
+    2. Merge your feature branch into your master branch
+        git merge <branch_name>
+```
+
+### Branch Conflicts:
+- Simply put, there are changes in both branches that touch the same piece of code (file, etc.) and git doesn't know which change should be accepted over the other.
+```php
+
+```
+
+### Reverting Changes:
+```php
+
+```
+
+## Collaborating
+- the ability for others to collaborate with you on your project.
+```php
+
+```
 
 ## Git General Commands:
+    ```php
     - git status:
         Current status of the branch.
         
     - git log:
         When I want to see what I have in my local database and what git has recorded up this point
-
+        
+    - git remote -v
+        Git setup for remotely repository fetch and push.
+    - git branch 
+        List all branches, shows current branch with an asteric *
+    ```
 
 ## GitHub Undoing things
     ```php
@@ -117,14 +193,6 @@
         It's too late to get back now.
     ```
 
-## GitHub Branches
-
-    - Master branch is the stable version of the code.
-    - Feature branch for testing adding new things if satisfied merge with master.
-
-### master branch:
-    - Is the stable version of the code.
-
 ### Creating & merging a branch:
     ```php
         // Creating a new branch 
@@ -155,21 +223,8 @@
         4. shift + :    type wq enter to exit now conflict branches merged.
     ```
 
-
 ## GitHub Remote Repositories:
 
-### Push local repository to remote(live) repo:
-    ```php
-        // make sure everything is comitted, nothing in staging.
-
-        git push https://github.com/malickateeq/GitHub-Notes.git master     //(url you get after creating reppo) -> branch_name
-        
-        // We can set alias to above url to avoid repeatition
-        git remote add origin https://github.com/malickateeq/GitHub-Notes.git        // origin is default used by many       
-        // Then
-        git push origin master  // with branch name
-        
-    ```
 ### Create live reppo and clone in to local:
     ```php
         1. Initialize with Readme.md
